@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiBot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            overflow-wrap: break-word;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #0078d7;
+        }
+
+        .output {
+            font-size: 1.5em;
+            color: #333;
+            font-family: 'Courier New', Courier, monospace;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PiBot</h1>
+        <div class="output" id="pi-value">3.</div>
+    </div>
+    <script>
+        const piValueElement = document.getElementById('pi-value');
+
+        let pi = 0; // পাই এর মান
+        let denominator = 1; // লাইবনিজ সূত্রে ডিনমিনেটর
+        let toggle = true; // যোগ/বিয়োগ পর্যায়ক্রমে পরিবর্তন
+        let decimals = "3."; // দশমিকের পরের মান
+
+        function calculatePi() {
+            // লাইবনিজ সূত্র অনুযায়ী পাই এর মান আপডেট করা
+            if (toggle) {
+                pi += 4 / denominator;
+            } else {
+                pi -= 4 / denominator;
+            }
+
+            // যোগ/বিয়োগ পর্যায়ক্রমে পরিবর্তন
+            toggle = !toggle;
+
+            // ডিনমিনেটর বৃদ্ধি
+            denominator += 2;
+
+            // পাই এর মান আপডেট করা এবং নতুন দশমিক সংখ্যা বের করা
+            const currentPi = pi.toFixed(50).toString(); // পাই এর মান স্ট্রিং হিসাবে রাখা
+            const newDecimals = currentPi.substring(2); // দশমিকের পরের সংখ্যা
+
+            // UI তে আপডেট করা
+            piValueElement.textContent = "3." + newDecimals;
+
+            // পুনরায় ফাংশন চালানো
+            setTimeout(calculatePi, 10);
+        }
+
+        // গণনা শুরু
+        calculatePi();
+    </script>
+</body>
+</html>
